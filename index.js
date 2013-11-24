@@ -40,8 +40,8 @@ module.exports = {
 	// listen for errors and fire the callback with the error and no result
 	result.on('error', function(err) {
 	    callback(err, null);
-	})
-	
+	});
+	try {
 	// end of data listener; use to find any existence of appears
 	result.on('end', function(){
 	    var res = JSON.parse(str),
@@ -66,8 +66,12 @@ module.exports = {
 	    // Reply back with true/false if this is a spammer
 	    callback(null, confidence);
 	});
+	}
+	catch(e) {
+	    callback(null, false);
+	}
     },
-    
+	
     /**
      * Check Spammer
      * Takes the object and creates path string the way stopforumspam.com wants it.
